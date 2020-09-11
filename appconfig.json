@@ -1,0 +1,46 @@
+{
+  "env": "PROD",
+  "version": "1.0.0",
+  "title": "WS-Screenshot",
+  "description": "Screenshot Service",
+  "mainDomain": "screenshot.elest.io",
+  "domains": ["*","screenshot.elest.io"], 
+  "publicFolder": "./public",
+  "TypeAPI": "LOCAL",
+  "TypeFS": "LOCAL",
+  "apiEndpoints": {
+    "/api/save" : {
+      "src": "./API/REST/",
+      "handler": "Save.handler"
+    },
+    "/api/query" : {
+      "src" : "./API/REST/",
+      "handler": "Query.handler"
+    },
+    "/api/sessions" : {
+      "src" : "./API/REST/",
+      "handler": "Sessions.handler"
+    },
+    "/api/GenerateJWT" : {
+      "src" : "./API/REST/",
+      "handler": "GenerateJWT.handler"
+    }
+  },
+  "websocketEndpoints": {
+    "/ws/monitor" : {
+      "src" : "./API/WS/",
+      "upgrade": "Monitor.upgrade",
+      "open": "Monitor.open",
+      "message": "Monitor.message",
+      "close": "Monitor.close"
+    },
+    "/ws/chat" : {
+      "src" : "./API/WS/",
+      "open": "Chat.open",
+      "message": "Chat.message",
+      "close": "Chat.close"
+    }
+  },
+  "ApiKey": "1d0ea49c-e026-43f5-93ce-6428bfa86e0d",
+  "JWTKey": "2142979b-d237-4792-b197-d2720c973e2d"
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+	<title>
+		WS-Screenshot test page
+	</title>
+	<meta name="description" content="Demo page for ws-trail">
+	<link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body>
+    <H1>WS-Screenshot test page</H1>
+    
+    
+    <div id='eventsLog'></div>
+    <br/><br/>
+    <button onclick='SendTest()'>Send test event</button>
+
+    <script>
+        //CUSTOMIZE YOUR WS-TRAIL CLIENT
+        var _wsTrail_uid = +(new Date()); //fill with the real userID
+        var _wsTrail_ctx = "public"; //fill with 'public' for unauthenticated or indicate the appID or other context for the user event, if ctx is filled then you MUST pass a JWT below
+        var _wsTrail_wlid = "-1"; //fill with the whiteLabelID (int), or -1
+        var _wsTrail_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxMjAiLCJpYXQiOjE1OTU3OTcwNzJ9.kQRb3FvmgAQztvER7W_UeQUlKUI3wQ5MRepBGdL_z6c"; //optional, used to authenticate SaveEvent
+        var _wsTrail_logSelector = "#eventsLog"; //keep empty if you don't want to bind logs
+    </script>
+    <script src='client.js'></script>
+
+
+    <script>
+        //FOR DEMO PAGE ONLY
+        function SendTest(){
+            SendEvent("Project created", "This is great ONE", 42, {"timestamp": (+new Date())})
+        }
+
+        //heartbeat
+        setInterval(function(){
+            globalWS.send( JSON.stringify( {"cmd": "heartbeat"} ) );
+        }, 5000);
+    </script>
+</body>
+
+</html>

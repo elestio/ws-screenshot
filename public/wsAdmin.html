@@ -1,0 +1,172 @@
+<html>
+
+    <head>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+        <style>
+            body{
+                margin: 0; padding: 0;
+            }
+            .lineContainer { 
+                padding: 10px;
+                word-break: break-word;
+                padding-bottom: 0px;
+                padding-top: 5px; 
+            }
+            #content { height: calc(100% - 48px); max-height: calc(100% - 32px); overflow-y: auto;  width: 100%; color: white; background: black; }
+            #txtInput { outline: none; font-size: 20px; height: 48px;width: calc(100% - 100px);  color: white; background: #2c2c2c; border: none;text-indent: 10px; }
+            #sendBtn { outline: none; font-size: 20px;  width: 100px;height: 48px;margin: 0;padding: 0;border: 0;background: #673AB7;margin-left: -4px;color: white; }
+
+            @media only screen and (max-width: 768px) {
+                #sendBtn { display:none; }
+                #txtInput { width: 100%; }
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div id='content' onclick='setFocusInput()'> </div>
+
+        <input id='txtInput' type='text' placeholder='Type a command ...'/>
+        <button id='sendBtn' onclick='SendMessage()'>SEND</button>
+
+
+        <script>
+            var input = document.getElementById("txtInput");
+            // Execute a function when the user releases a key on the keyboard
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    // Cancel the default action, if needed
+                    event.preventDefault();
+                    SendMessage()
+                }
+            });
+                    
+            var nbRetry = 0;
+            var maxRetry = 5;
+
+            var token = "";
+
+            if ( getParamFromUrl("token") != "" && getParamFromUrl("token") != null ){
+                token = getParamFromUrl("token");
+            }
+            else{
+                token = prompt("Please indicate your cloudgate admin token");
+            }
+
+            var firstConnection = true;
+
+            function connect() {
+                var protocolPrefix = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
+                var rootURL = protocolPrefix + '//' + location.host;
+                var ws = null;
+
+                ws = new WebSocket(rootURL + '/CloudGateAdmin?token=' + token);
+                
+                globalWS = ws;
+                ws.onopen = function() {
+                    nbRetry = 0;
+                    firstConnection = false;
+                };
+
+                ws.onmessage = function(e) {
+                    //console.log('Message:', e.data);
+
+                    var obj = JSON.parse(e.data);
+                    
+                    var timeDetails = "";
+                    if ( obj.origTS != null ){
+                        var timediffInMS = ((+new Date()) - parseInt(obj.origTS) );
+                        timeDetails = '<br/> <span style="font-size: 12px;color: #c4ffce;">Latency: ' + timediffInMS + 'ms</span><br/><br/>';
+                    }
+                    
+
+                    var new_html = '<span class="line">' + (new Date().toLocaleTimeString()) + ": " + (obj.body) + timeDetails + ' </span>';
+                    var new_elem = document.createElement('div');
+                    new_elem.className = 'lineContainer';
+                    new_elem.innerHTML = new_html;
+
+                    var content = document.getElementById('content');
+                    content.appendChild(new_elem);
+
+                    //scroll to bottom of content
+                    content.scrollTop = content.scrollHeight;
+                };
+
+                ws.onclose = function(e) {
+                    if ( nbRetry < maxRetry){
+                        nbRetry += 1;
+                        console.log('Socket is closed. Reconnect will be attempted in ' + nbRetry + ' seconds.', e.reason);
+                        setTimeout(function() {
+                            connect();
+                        }, 1000*nbRetry); //backoff mechanism
+                    }
+                };
+
+                ws.onerror = function(err) {
+
+                    if ( firstConnection )
+                    {
+                        token = prompt("Please indicate your cloudgate admin token", token);
+                        //connect();
+                        return;
+                    }
+
+                    console.error('Socket encountered error: ', err.message, 'Closing socket');
+                    ws.close();
+
+                    nbRetry += 1;
+                };
+            }
+
+            connect();
+
+
+            function SendMessage(){
+                var txt = document.getElementById('txtInput').value;
+
+                if (!txt.startsWith('/')){
+                    txt = "/" + txt;
+                }
+
+                Send(txt);
+                document.getElementById('txtInput').value = "";
+            }
+
+            
+            function Send(txt) {
+                
+                if ( globalWS.readyState != 1 ){
+                    //websocket is closed, skip it ... (or queue it?)
+                    return;
+                }
+
+                var msg = {
+                    action: "command",
+                    ts: (+new Date()),
+                    body: txt
+                };
+                
+
+                globalWS.send( encodeURIComponent( JSON.stringify(msg) ) );
+            }
+
+            var sanitizeHTML = function (str) {
+                var temp = document.createElement('div');
+                temp.textContent = str;
+                return temp.innerHTML;
+            };
+
+            setFocusInput();
+            function setFocusInput(){
+                document.getElementById("txtInput").focus();
+            }
+
+            function getParamFromUrl(n){var t=new RegExp("[?&]"+n+"=([^&#]*)").exec(window.location.href);return t==null?null:t[1]||0};
+
+        </script>
+
+    </body>
+
+</html>

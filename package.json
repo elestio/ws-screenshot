@@ -1,0 +1,25 @@
+{
+  "name": "ws-trail",
+  "version": "1.0.2",
+  "description": "Fast websocket based Audit trail in real time",
+  "main": "index.js",
+  "scripts": {
+    "server": "node node_modules/@elestio/cloudgate/cloudgate.js ../../../ -p 80 -c 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elestio/ws-trail.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elestio/ws-trail/issues"
+  },
+  "homepage": "https://github.com/elestio/ws-trail#readme",
+  "dependencies": {
+    "@elestio/cloudgate": "^1.0.52",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.3.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
+  }
+}
