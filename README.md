@@ -18,7 +18,7 @@ if you are on Node 10, you can activate multi-threading by executing this in you
     sudo apt -y install nodejs
 &nbsp;
 
-# Install ws-trail server
+# Install ws-screenshot server
 
 First, let's start TimescaleDB with docker. This create a docker service for PostgreSQL + TimescaleDB module
 
@@ -28,7 +28,7 @@ Then create the DB & tables in the container named "timescaledb":
 
     ./DB/createDB.sh
 
-then install NPM dependencies for ws-trail:
+then install NPM dependencies for ws-screenshot:
     
     npm install
 &nbsp;
