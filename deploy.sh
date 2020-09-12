@@ -1,1 +1,1 @@
-ssh root@116.203.203.32 "cd ws-trail && git pull && pm2 reload ws-trail";
+ssh root@xxx.xxx.xxx.xxx "cd ws-screenshot && git pull && pm2 reload ws-screenshot";

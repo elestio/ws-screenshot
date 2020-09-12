@@ -17,9 +17,10 @@
   },
   "homepage": "https://github.com/elestio/ws-trail#readme",
   "dependencies": {
-    "@elestio/cloudgate": "^1.0.52",
+    "@elestio/cloudgate": "^1.0.60",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.0",
+    "puppeteer": "^5.3.0",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
   }
 }

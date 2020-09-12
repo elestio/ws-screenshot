@@ -15,10 +15,15 @@
 <body>
     <H1>WS-Screenshot test page</H1>
     
-    
-    <div id='eventsLog'></div>
+    <div id='eventsLog' style='display: none;'></div>
+   
+    <input id='fieldUrl' type='text' value='https://vms2.terasp.net' placeholder="type an url to screenshot, eg: https://google.com">
+    <button onclick='DoScreenshot()'>Do Screenshot</button>
+
     <br/><br/>
-    <button onclick='SendTest()'>Send test event</button>
+    <div id='stats'></div>
+    <img id='resultImg' src='' style='width: 1280px;zoom: 0.5;background: #eee;'></img>
+    
 
     <script>
         //CUSTOMIZE YOUR WS-TRAIL CLIENT
@@ -33,14 +38,9 @@
 
     <script>
         //FOR DEMO PAGE ONLY
-        function SendTest(){
-            SendEvent("Project created", "This is great ONE", 42, {"timestamp": (+new Date())})
+        function DoScreenshot(){
+            AskForScreenshot(document.getElementById("fieldUrl").value);
         }
-
-        //heartbeat
-        setInterval(function(){
-            globalWS.send( JSON.stringify( {"cmd": "heartbeat"} ) );
-        }, 5000);
     </script>
 </body>
 

@@ -12,14 +12,10 @@ function handler() {
 }
 
 function connect() {
-    var jwt = "";
-    if ( _wsTrail_jwt != "" ){
-        jwt = _wsTrail_jwt;
-    }
-
+    
     var protocolPrefix = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
     var rootURL = protocolPrefix + '//' + location.host;
-    var ws = new WebSocket(rootURL + '/ws/monitor?jwt=' + jwt);
+    var ws = new WebSocket(rootURL + '/ws/screenshot');
     var nbConnectRetry = 5;
     globalWS = ws;
     ws.onopen = function() {
@@ -35,8 +31,17 @@ function connect() {
         var msg = e.data;
         //console.log('Message:', msg);
 
-        $(_wsTrail_logSelector).append( sanitizeHTML(msg) + "<br/>");
-        $('body').scrollTop($('body').height());
+        var obj = JSON.parse(msg);
+        if ( obj.cmd == "responseScreenshot" ){
+            $("#resultImg").attr("src", "data:image/jpeg;base64, " + obj.data);
+            $("#stats").html("Processing time: " + obj.execTime + " - Roundtrip: " + ( (+new Date()) - obj.originalTS) + "ms" );
+            $("#resultImg").show();
+        }
+        else{
+            $(_wsTrail_logSelector).append( sanitizeHTML(msg) + "<br/>");
+            $('body').scrollTop($('body').height());
+        }
+       
     };
 
     ws.onclose = function(e) {
@@ -54,11 +59,11 @@ function connect() {
 }
 
 var sendQueue = [];
-function SendEvent(eventType, eventTitle, eventValue, eventData){    
-    
-    var event = { cmd: "event", uid: _wsTrail_uid, ctx: _wsTrail_ctx, type: eventType, 
-        title: eventTitle, val: eventValue, data: eventData, wlid: _wsTrail_wlid };
-     Send(event);
+function AskForScreenshot(url){    
+    $("#resultImg").hide();
+    $("#stats").html("Please wait ...");
+    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()) };
+    Send(event);
 }
 
 

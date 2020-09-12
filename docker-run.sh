@@ -1,1 +1,1 @@
-docker run -p 3000:3000 -it ws-trail
+docker run -p 3000:3000 -it ws-screenshot

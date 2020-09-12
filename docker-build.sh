@@ -1,1 +1,1 @@
-docker build -t ws-trail .
+docker build -t ws-screenshot .
