@@ -51,8 +51,8 @@ exports.message = async (event, context, callback) => {
                 url = decodeURIComponent(url);
             }
 
-            var screenshotResult = await tools.screnshotForUrl(url, true);
-            //var screenshotResult = await screnshotForUrlTab(url);
+            //var screenshotResult = await tools.screnshotForUrl(url, true);
+            var screenshotResult = await tools.screnshotForUrlTab(url, true);
 
             sharedmem.incInteger("nbPuppeteerProcess", -1);
 

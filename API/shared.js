@@ -24,16 +24,14 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage) {
             });
 
             //scroll the whole page for lazy loading
-            //await autoScroll(page);
+            await autoScroll(page);
 
             //wait for the page to be fully loaded - max 1000ms wait
-            /*
             try{
-                await page.waitForNavigation({waitUntil: 'networkidle2', timeout: 1000});
+                //await page.waitForNavigation({waitUntil: 'networkidle2', timeout: 500});
             } catch(ex){
-
             }
-            */
+            
 
             buffer = await page.screenshot({ 
                 //type:'png', 
@@ -146,7 +144,7 @@ async function autoScroll (page) {
   await page.evaluate(async () => {
     await new Promise((resolve, reject) => {
       let totalHeight = 0
-      let distance = 500
+      let distance = 200
       let timer = setInterval(() => {
         let scrollHeight = document.body.scrollHeight
         window.scrollBy(0, distance)
@@ -155,7 +153,7 @@ async function autoScroll (page) {
           clearInterval(timer)
           resolve()
         }
-      }, 100)
+      }, 10)
     })
   })
 }

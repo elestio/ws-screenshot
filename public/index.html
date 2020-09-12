@@ -18,6 +18,16 @@
     <hr/>
 
     <br/>
+    <h2>REST API usage</h2>
+    <span>
+        Just call /api/screenshot api endpoint like this:<br/>
+        <a href='/api/screenshot?url=https://test.com' target='_blank'>/api/screenshot?url=https://test.com</a>
+    </span>    
+
+    <br/>
+    <hr/>
+
+    <br/>
     <h2>Websocket usage</h2>
     
     <div id='eventsLog' style='display: none;'></div>
@@ -25,20 +35,14 @@
     <input id='fieldUrl' type='text' value='https://vms2.terasp.net' placeholder="type an url to screenshot, eg: https://google.com">
     <button onclick='DoScreenshot()'>Do Screenshot</button>
 
-    <br/>
+    <br/><br/>
     <div id='stats'></div>
     <img id='resultImg' src='' style='max-width: 100%; width: 1280px;zoom: 0.5;background: #eee;'></img>
 
     <br/>
 
-    <hr/>
 
-    <br/>
-    <h2>REST API usage</h2>
-    <span>
-        Just call /api/screenshot api endpoint like this:<br/>
-        <a href='/api/screenshot?url=https://test.com' target='_blank'>/api/screenshot?url=https://test.com</a>
-    </span>    
+    
 
     <script>
         //CUSTOMIZE YOUR WS-TRAIL CLIENT
