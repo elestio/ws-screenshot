@@ -24,10 +24,14 @@ Clone this repo then install NPM dependencies for ws-screenshot:
     git clone git@github.com:elestio/ws-screenshot.git
     cd ws-screenshot
     npm install
+
+Install required dependencies for chrome:
+    
+    installPuppeteerNativeDeps.sh
+
 &nbsp;
 
 # Run ws-screenshot
-
 
 ## Run directly
 
