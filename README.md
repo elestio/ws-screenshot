@@ -1,11 +1,17 @@
 # ws-screenshot
-## Fast websocket + rest api based screenshot server
+Fast websocket + rest api based screenshot server
 &nbsp;
 
 # Quickstart with Docker
-    
+
+Run once: 
+
     docker pull elestio/ws-screenshot.slim
     docker run -p 3000:3000 -it elestio/ws-screenshot.slim
+
+or Run as a docker service:
+
+    docker run -d --restart always -p 3000:3000 -it elestio/ws-screenshot.slim
 
 Then open http://yourIP:3000/ in your browser
 

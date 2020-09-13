@@ -61,7 +61,14 @@ exports.message = async (event, context, callback) => {
             }
 
             //var screenshotResult = await tools.screnshotForUrl(url, true);
-            var screenshotResult = await tools.screnshotForUrlTab(url, obj.isFullPage, obj.resX, obj.resY, obj.outFormat);
+            var screenshotResult = null;
+            try{
+                screenshotResult = await tools.screnshotForUrlTab(url, obj.isFullPage, obj.resX, obj.resY, obj.outFormat);
+            }
+            catch(ex){
+                //do nothing
+            }
+            
 
             sharedmem.incInteger("nbPuppeteerProcess", -1);
 

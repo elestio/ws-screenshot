@@ -42,7 +42,14 @@ exports.handler = async (event, context, callback) => {
     var outFormat = "jpg"; if ( event.queryStringParameters.outFormat != null ) { outFormat = event.queryStringParameters.outFormat; }
     
     //var screenshotResult = await tools.screnshotForUrl(url, isFullPage, resX, resY, outFormat);
-    var screenshotResult = await tools.screnshotForUrlTab(url, isFullPage, resX, resY, outFormat);
+    var screenshotResult = null;
+    
+    try{    
+        screenshotResult = await tools.screnshotForUrlTab(url, isFullPage, resX, resY, outFormat);
+    }
+    catch(ex){
+        //do nothing
+    }
 
     sharedmem.incInteger("nbPuppeteerProcess", -1);
 
