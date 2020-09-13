@@ -13,18 +13,17 @@ exports.handler = async (event, context, callback) => {
 
     var sharedmem = context.sharedmem;
     var beginPipeline = process.hrtime();
-
-    /*
-    if ( !apiAuth && !jwtAuth ){
+    
+    if ( hardcodedAPIKey != "" && event.queryStringParameters.apiKey != hardcodedAPIKey ){
         callback(null, {
             status: 400,
-            content: "Invalid token / jwt provided"
+            content: "Invalid API Key"
         });
         return;
-    }
-    */
+    }   
+
     while ( sharedmem.getInteger("nbPuppeteerProcess") >= maxConcurrency ){
-        await sleep(20);
+        await tools.sleep(20);
     }
 
     sharedmem.incInteger("nbPuppeteerProcess", 1);
@@ -37,8 +36,13 @@ exports.handler = async (event, context, callback) => {
         url = decodeURIComponent(url);
     }
 
-    var screenshotResult = await tools.screnshotForUrl(url, true);
-    //var screenshotResult = await screnshotForUrlTab(url);
+    var isFullPage = false; if ( event.queryStringParameters.isFullPage == "true" ) { isFullPage = true; }
+    var resX = 1280; if ( event.queryStringParameters.resX != null ) { resX = event.queryStringParameters.resX; }
+    var resY = 900; if ( event.queryStringParameters.resY != null ) { resY = event.queryStringParameters.resY; }
+    var outFormat = "jpg"; if ( event.queryStringParameters.outFormat != null ) { outFormat = event.queryStringParameters.outFormat; }
+    
+    //var screenshotResult = await tools.screnshotForUrl(url, isFullPage, resX, resY, outFormat);
+    var screenshotResult = await tools.screnshotForUrlTab(url, isFullPage, resX, resY, outFormat);
 
     sharedmem.incInteger("nbPuppeteerProcess", -1);
 

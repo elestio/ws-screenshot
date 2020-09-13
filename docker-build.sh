@@ -1,1 +1,1 @@
-docker build -t ws-screenshot .
+docker build -t elestio/ws-screenshot .

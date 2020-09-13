@@ -21,7 +21,8 @@
     <h2>REST API usage</h2>
     <span>
         Just call /api/screenshot api endpoint like this:<br/>
-        <a href='/api/screenshot?url=https://test.com' target='_blank'>/api/screenshot?url=https://test.com</a>
+        <a id="sampleREST" href='/api/screenshot?url=https://vms2.terasp.net' target='_blank'>/api/screenshot?url=https://vms2.terasp.net</a><br/><br/>
+        If your url contains parameters you should url encode it<br/>
     </span>    
 
     <br/>
@@ -32,12 +33,25 @@
     
     <div id='eventsLog' style='display: none;'></div>
    
-    <input id='fieldUrl' type='text' value='https://vms2.terasp.net' placeholder="type an url to screenshot, eg: https://google.com">
+    <input id='fieldUrl' type='text' value='https://vms2.terasp.net' placeholder="type an url to screenshot, eg: https://google.com" onchange='UpdateRESTUrl()'>
     <button onclick='DoScreenshot()'>Do Screenshot</button>
+    <button onclick='CleanMemory()'>Clean Memory</button>
+
+    <br/><br/>
+
+    <input id='resX' type='number' min="100" max="2560" value="1280" onchange='UpdateRESTUrl()' /> x <input id='resY' type='number' min="100" max="2560" value="900" onchange='UpdateRESTUrl()' />
+    <select id='outFormat' onchange='UpdateRESTUrl()'>
+        <option value='jpg'>JPG</option>
+        <option value='png'>PNG</option>
+        <option value='pdf'>PDF</option>
+    </select>
+
+    <input id='isFullPage' type='checkbox' onchange='UpdateRESTUrl()'> Full page screenshot
 
     <br/><br/>
     <div id='stats'></div>
-    <img id='resultImg' src='' style='max-width: 100%; width: 1280px;zoom: 0.5;background: #eee;'></img>
+    <img id='resultImg' src='' style='margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;'></img>
+    <iframe id='resultPDF' src='' style='display: none; margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;'></iframe>
 
     <br/>
 
@@ -58,8 +72,15 @@
     <script>
         //FOR DEMO PAGE ONLY
         function DoScreenshot(){
-            AskForScreenshot(document.getElementById("fieldUrl").value);
+            var url = document.getElementById("fieldUrl").value;
+            var resX = document.getElementById("resX").value;
+            var resY = document.getElementById("resY").value;
+            var outFormat = document.getElementById("outFormat").value;
+            var isFullPage = document.getElementById("isFullPage").checked;
+
+            AskForScreenshot(url, resX, resY, outFormat, isFullPage);
         }
+
     </script>
 </body>
 

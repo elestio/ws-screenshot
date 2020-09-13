@@ -1,6 +1,5 @@
 const qs = require('querystring');
-var jwt = require('jsonwebtoken');
-var JWTKey = require("../../appconfig.json").JWTKey;
+var hardcodedAPIKey = require("../../appconfig.json").ApiKey;
 const tools = require('../shared.js');
 
 const os = require('os')
@@ -29,6 +28,16 @@ exports.message = async (event, context, callback) => {
         var msg = event.body;
         var obj = JSON.parse(msg);
         msg = JSON.stringify(obj);
+
+
+        if ( hardcodedAPIKey != "" && obj.apiKey != hardcodedAPIKey ){
+            callback(null, JSON.stringify({
+                status: 400,
+                content: "Invalid API Key"
+            }));
+            return;
+        }
+
         
         var resp = null;
 
@@ -38,7 +47,7 @@ exports.message = async (event, context, callback) => {
             var beginPipeline = process.hrtime();
 
             while ( sharedmem.getInteger("nbPuppeteerProcess") >= maxConcurrency ){
-                await sleep(20);
+                await tools.sleep(20);
             }
 
             sharedmem.incInteger("nbPuppeteerProcess", 1);
@@ -52,7 +61,7 @@ exports.message = async (event, context, callback) => {
             }
 
             //var screenshotResult = await tools.screnshotForUrl(url, true);
-            var screenshotResult = await tools.screnshotForUrlTab(url, true);
+            var screenshotResult = await tools.screnshotForUrlTab(url, obj.isFullPage, obj.resX, obj.resY, obj.outFormat);
 
             sharedmem.incInteger("nbPuppeteerProcess", -1);
 
@@ -76,7 +85,16 @@ exports.message = async (event, context, callback) => {
                 "data": screenshotResult.data.toString("base64"), 
                 "execTime": durationMS.toFixed(2) + "ms",
                 "originalTS": obj.originalTS,
+                "outFormat": obj.outFormat,
                 "Content-Type": screenshotResult.mimeType
+            };
+        }
+        else if ( obj.cmd == "CleanMemory" ){
+            await tools.CleanMemory();
+            resp = {
+                "cmd": "responseCleanMemory", 
+                "originalTS": obj.originalTS,
+                "status": "OK"
             };
         }
     

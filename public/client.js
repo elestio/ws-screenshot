@@ -9,6 +9,7 @@ head.appendChild(script);
 
 function handler() {
     connect();
+     UpdateRESTUrl();
 }
 
 function connect() {
@@ -33,9 +34,22 @@ function connect() {
 
         var obj = JSON.parse(msg);
         if ( obj.cmd == "responseScreenshot" ){
-            $("#resultImg").attr("src", "data:image/jpeg;base64, " + obj.data);
+
+            if (obj.outFormat == "pdf"){
+                $("#resultPDF").attr("src", "data:application/pdf;base64, " + obj.data);
+                $("#resultPDF").css("width", document.getElementById("resX").value);
+                $("#resultPDF").css("height", document.getElementById("resY").value);
+                
+                $("#resultPDF").show();
+                $("#resultImg").hide();
+            }
+            else{
+                $("#resultImg").attr("src", "data:image/jpeg;base64, " + obj.data);
+                $("#resultImg").show();
+                $("#resultPDF").hide();
+            }            
+
             $("#stats").html("Processing time: " + obj.execTime + " - Roundtrip: " + ( (+new Date()) - obj.originalTS) + "ms" );
-            $("#resultImg").show();
         }
         else{
             $(_wsTrail_logSelector).append( sanitizeHTML(msg) + "<br/>");
@@ -59,13 +73,18 @@ function connect() {
 }
 
 var sendQueue = [];
-function AskForScreenshot(url){    
+function AskForScreenshot(url, resX, resY, outFormat, isFullPage){    
     $("#resultImg").hide();
     $("#stats").html("Please wait ...");
-    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()) };
+    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), resX: resX, resY: resY, outFormat: outFormat, isFullPage: isFullPage };
     Send(event);
 }
 
+
+function CleanMemory(){
+    var event = { cmd: "CleanMemory", originalTS: (+new Date()) };
+    Send(event);
+}
 
 function Send(event){    
     if ( globalWS.readyState != 1 ){
@@ -90,6 +109,27 @@ var sanitizeHTML = function (str) {
     temp.textContent = str;
     return temp.innerHTML;
 };
+
+
+function UpdateRESTUrl(){
+    
+    var baseUrl = "/api/screenshot?resX=" + $("#resX").val();
+    baseUrl += "&resY=" + $("#resY").val();
+    baseUrl += "&outFormat=" + $("#outFormat").val();
+
+    baseUrl += "&isFullPage=" + document.getElementById("isFullPage").checked;
+
+    if ( $("#fieldUrl").val().indexOf("&") > -1 ){
+        baseUrl += "&url=" + encodeURIComponent( $("#fieldUrl").val() )
+    }
+    else{
+        baseUrl += "&url=" + ( $("#fieldUrl").val() )
+    }
+    
+
+    $("#sampleREST").attr("href", baseUrl);
+    $("#sampleREST").text(baseUrl);
+}
 
 
 /////// USAGE //////
