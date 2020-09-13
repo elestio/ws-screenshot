@@ -67,6 +67,11 @@ Run as a docker service
 
     docker run --name ws-screenshot -d --restart always -p 3000:3000 -it ws-screenshot
 
+## Run on Kubernetes
+Run with helm
+
+    helm upgrade --install ws-screenshot --namespace ws-screenshot helm/
+
 &nbsp;
 # Usage
 
