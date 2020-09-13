@@ -87,9 +87,20 @@ exports.message = async (event, context, callback) => {
             });
             */
 
+            var b64Data = "";
+            try{
+                if (screenshotResult.data != null){
+                    b64Data = screenshotResult.data.toString("base64");
+                }
+            }
+            catch(ex){
+
+            }
+            
+
             resp = {
                 "cmd": "responseScreenshot", 
-                "data": screenshotResult.data.toString("base64"), 
+                "data": b64Data, 
                 "execTime": durationMS.toFixed(2) + "ms",
                 "originalTS": obj.originalTS,
                 "outFormat": obj.outFormat,
