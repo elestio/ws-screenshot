@@ -2,6 +2,12 @@
 ## Fast websocket + rest api based screenshot server
 &nbsp;
 
+# Quickstart with Docker
+    
+    docker pull elestio/ws-screenshot.slim
+    docker run -p 3000:3000 -it elestio/ws-screenshot.slim
+
+
 # Requirements
 
 - Linux, Windows or Mac OS
