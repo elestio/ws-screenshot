@@ -57,7 +57,7 @@ or
 
     npm run server
 
-## Run with docker
+## Run with docker (local version for dev)
 Run just once
 
     docker build -t ws-screenshot .
@@ -65,7 +65,7 @@ Run just once
 
 Run as a docker service
 
-    docker run -p 3000:3000 -it ws-screenshot -d --restart always
+    docker run  -d --restart always -p 3000:3000 -it ws-screenshot
 
 &nbsp;
 # Usage
