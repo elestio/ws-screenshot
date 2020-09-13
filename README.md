@@ -7,7 +7,9 @@
     docker pull elestio/ws-screenshot.slim
     docker run -p 3000:3000 -it elestio/ws-screenshot.slim
 
+Then open http://yourIP:3000/ in your browser
 
+&nbsp;
 # Requirements
 
 - Linux, Windows or Mac OS
