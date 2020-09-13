@@ -1,5 +1,9 @@
 # ws-screenshot
-Fast websocket + rest api based screenshot server
+ws-screenshot is a Fast websocket + rest api based screenshot server
+"A way to take a screenshot of a website by providing its URL"
+
+DEMO: http://backup15.terasp.net/
+
 &nbsp;
 
 # Quickstart with Docker
