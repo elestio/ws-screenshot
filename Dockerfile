@@ -18,4 +18,4 @@ RUN apt-get update && apt-get install -y gconf-service libasound2 libatk1.0-0 li
 COPY . .
 
 EXPOSE 3000
-CMD node ./node_modules/@elestio/cloudgate/cloudgate.js ../../../ -c 1
+CMD node ./node_modules/@elestio/cloudgate/cloudgate.js ../../../
