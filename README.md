@@ -1,6 +1,6 @@
 # ws-screenshot
-ws-screenshot is a Fast websocket + rest api based screenshot server
-"A way to take a screenshot of a website by providing its URL"
+A simple way to take a screenshot of a website by providing its URL
+Provide a fast websocket + rest api screenshot server
 
 DEMO: http://backup15.terasp.net/
 
