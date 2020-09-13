@@ -11,7 +11,7 @@ Run once:
 
 or Run as a docker service:
 
-    docker run -d --restart always -p 3000:3000 -it elestio/ws-screenshot.slim
+    docker run --name ws-screenshot -d --restart always -p 3000:3000 -it elestio/ws-screenshot.slim
 
 Then open http://yourIP:3000/ in your browser
 
@@ -65,7 +65,7 @@ Run just once
 
 Run as a docker service
 
-    docker run  -d --restart always -p 3000:3000 -it ws-screenshot
+    docker run --name ws-screenshot -d --restart always -p 3000:3000 -it ws-screenshot
 
 &nbsp;
 # Usage

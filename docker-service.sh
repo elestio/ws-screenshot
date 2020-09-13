@@ -1,1 +1,1 @@
-docker run -p 3000:3000 -it ws-screenshot -d --restart always
+docker run -d --restart always --name ws-screenshot -p 3000:3000 -it ws-screenshot
