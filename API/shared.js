@@ -1,8 +1,18 @@
 const puppeteer = require('puppeteer');
 
 var browser = null;
-module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY, outFormat) {
+module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY, outFormat, waitTime) {
     return new Promise(async function (resolve, reject) {
+
+        try{
+            waitTime = parseInt(waitTime);
+            //prevent never finishing wait
+            if ( waitTime == 0) {
+                waitTime = 1;
+            }
+        } catch(ex) {
+            waitTime = 100;
+        }
 
         var timestamp = (+new Date());
         var buffer = null;
@@ -30,7 +40,7 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
             
             //wait for the page to be fully loaded - max 1000ms wait
             try{
-                await page.waitForNavigation({waitUntil: 'networkidle2', timeout: 100});
+                await page.waitForNavigation({waitUntil: 'networkidle2', timeout: waitTime});
             } catch(ex){
             }
             
@@ -110,8 +120,18 @@ async function CleanMem(){
     }
 }
 
-module.exports.screnshotForUrl = async function (url, isfullPage, resX, resY, outFormat) {
+module.exports.screnshotForUrl = async function (url, isfullPage, resX, resY, outFormat, waitTime) {
     return new Promise(async function (resolve, reject) {
+
+        try{
+            waitTime = parseInt(waitTime);
+            //prevent never finishing wait
+            if ( waitTime == 0) {
+                waitTime = 1;
+            }
+        } catch(ex) {
+            waitTime = 100;
+        }
 
         var timestamp = (+new Date());
         var buffer = null;
@@ -141,7 +161,7 @@ module.exports.screnshotForUrl = async function (url, isfullPage, resX, resY, ou
 
             //wait for the page to be fully loaded - max 1000ms wait
             try{
-                //await page.waitForNavigation({waitUntil: 'networkidle2', timeout: 1000});
+                await page.waitForNavigation({waitUntil: 'networkidle2', timeout: waitTime});
             } catch(ex){
 
             }

@@ -16,8 +16,7 @@
   },
   "homepage": "https://github.com/elestio/ws-screenshot#readme",
   "dependencies": {
-    "puppeteer": "^5.3.0",
-    "@elestio/cloudgate": "^1.0.60",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
+    "@elestio/cloudgate": "^1.0.63",
+    "puppeteer": "^5.3.0"
   }
 }

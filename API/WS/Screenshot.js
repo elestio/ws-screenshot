@@ -63,7 +63,7 @@ exports.message = async (event, context, callback) => {
             //var screenshotResult = await tools.screnshotForUrl(url, true);
             var screenshotResult = null;
             try{
-                screenshotResult = await tools.screnshotForUrlTab(url, obj.isFullPage, obj.resX, obj.resY, obj.outFormat);
+                screenshotResult = await tools.screnshotForUrlTab(url, obj.isFullPage, obj.resX, obj.resY, obj.outFormat, obj.waitTime);
             }
             catch(ex){
                 //do nothing
@@ -71,6 +71,7 @@ exports.message = async (event, context, callback) => {
             
 
             sharedmem.incInteger("nbPuppeteerProcess", -1);
+            sharedmem.incInteger("nbScreenshots", 1);
 
             const nanoSeconds = process.hrtime(beginPipeline).reduce((sec, nano) => sec * 1e9 + nano);
             var durationMS = (nanoSeconds/1000000);
@@ -102,6 +103,7 @@ exports.message = async (event, context, callback) => {
                 "cmd": "responseScreenshot", 
                 "data": b64Data, 
                 "execTime": durationMS.toFixed(2) + "ms",
+                "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
                 "originalTS": obj.originalTS,
                 "outFormat": obj.outFormat,
                 "Content-Type": screenshotResult.mimeType

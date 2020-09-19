@@ -98,6 +98,7 @@ You can check /public/js/client.js and /public/index.html for a sample on how to
 - resY: integer value for screen height, default: 900
 - outFormat: output format, can be jpg, png or pdf, default: jpg
 - isFullPage: true or false, indicate if we should scroll the page and make a full page screenshot, default: false
+- waitTime: integer value in miliseconds, indicate max time to wait for page resources to load, default: 100
 
 &nbsp;
 # Protect with an ApiKey

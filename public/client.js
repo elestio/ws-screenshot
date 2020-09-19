@@ -73,10 +73,10 @@ function connect() {
 }
 
 var sendQueue = [];
-function AskForScreenshot(url, resX, resY, outFormat, isFullPage){    
+function AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime){    
     $("#resultImg").hide();
     $("#stats").html("Please wait ...");
-    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), resX: resX, resY: resY, outFormat: outFormat, isFullPage: isFullPage };
+    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), resX: resX, resY: resY, outFormat: outFormat, isFullPage: isFullPage, waitTime: waitTime };
     Send(event);
 }
 
@@ -116,7 +116,7 @@ function UpdateRESTUrl(){
     var baseUrl = "/api/screenshot?resX=" + $("#resX").val();
     baseUrl += "&resY=" + $("#resY").val();
     baseUrl += "&outFormat=" + $("#outFormat").val();
-
+    baseUrl += "&waitTime=" + $("#waitTime").val();
     baseUrl += "&isFullPage=" + document.getElementById("isFullPage").checked;
 
     if ( $("#fieldUrl").val().indexOf("&") > -1 ){

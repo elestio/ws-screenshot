@@ -23,7 +23,7 @@
     <h2>REST API usage</h2>
     <span>
         Just call /api/screenshot api endpoint like this:<br/>
-        <a id="sampleREST" href='/api/screenshot?url=https://vms2.terasp.net' target='_blank'>/api/screenshot?url=https://vms2.terasp.net</a><br/><br/>
+        <a id="sampleREST" href='/api/screenshot?url=https://vms2.terasp.net' target='_blank' style='word-break: break-all;'>/api/screenshot?url=https://vms2.terasp.net</a><br/><br/>
         If your url contains parameters you should url encode it<br/>
     </span>    
 
@@ -41,14 +41,22 @@
 
     <br/><br/>
 
-    <input id='resX' type='number' min="100" max="2560" value="1280" onchange='UpdateRESTUrl()' /> x <input id='resY' type='number' min="100" max="2560" value="900" onchange='UpdateRESTUrl()' />
-    <select id='outFormat' onchange='UpdateRESTUrl()'>
-        <option value='jpg'>JPG</option>
-        <option value='png'>PNG</option>
-        <option value='pdf'>PDF</option>
-    </select>
+    <div style='float: left;'>
+        <input id='resX' type='number' min="100" max="2560" value="1280" onchange='UpdateRESTUrl()' /> x <input id='resY' type='number' min="100" max="2560" value="900" onchange='UpdateRESTUrl()' />
+        <select id='outFormat' onchange='UpdateRESTUrl()'>
+            <option value='jpg'>JPG</option>
+            <option value='png'>PNG</option>
+            <option value='pdf'>PDF</option>
+        </select>
+    </div>
 
-    <input id='isFullPage' type='checkbox' onchange='UpdateRESTUrl()'> Full page screenshot
+    <div style='float: left;'>
+        <input id='isFullPage' type='checkbox' onchange='UpdateRESTUrl()'> Full page screenshot
+    </div>
+
+    <div style='margin-top:10px; float: left; width: 100%;'>
+        <span>Wait time before screenshot </span>  <input id='waitTime' type='number' min="0" max="30000" value="100" onchange='UpdateRESTUrl()' /> ms
+    </div>
 
     <br/><br/>
     <div id='stats'></div>
@@ -79,8 +87,9 @@
             var resY = document.getElementById("resY").value;
             var outFormat = document.getElementById("outFormat").value;
             var isFullPage = document.getElementById("isFullPage").checked;
-
-            AskForScreenshot(url, resX, resY, outFormat, isFullPage);
+            var waitTime = document.getElementById("waitTime").value;
+            
+            AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime);
         }
 
     </script>

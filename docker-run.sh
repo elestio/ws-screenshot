@@ -1,1 +1,1 @@
-docker run -p 3000:3000 -it ws-screenshot
+docker run -p 3000:3000 -it elestio/ws-screenshot
