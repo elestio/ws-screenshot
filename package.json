@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/elestio/ws-screenshot#readme",
   "dependencies": {
-    "@elestio/cloudgate": "^1.0.63",
+    "@elestio/cloudgate": "^1.0.66",
     "puppeteer": "^5.3.0"
   }
 }

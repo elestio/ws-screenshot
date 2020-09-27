@@ -8,6 +8,13 @@
   "publicFolder": "./public",
   "TypeAPI": "LOCAL",
   "TypeFS": "LOCAL",
+  "HSTS": false,
+  "rateLimiter" : {
+    "requestsPerSecond" : 4
+  },
+  "CORS": {
+      "access-control-allow-origin": "*"
+  },
   "apiEndpoints": {
     "/api/screenshot" : {
       "src" : "./API/REST/",
