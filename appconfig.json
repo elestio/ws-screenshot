@@ -10,7 +10,7 @@
   "TypeFS": "LOCAL",
   "HSTS": false,
   "rateLimiter" : {
-    "requestsPerSecond" : 4
+    "requestsPerSecond" : -1
   },
   "CORS": {
       "access-control-allow-origin": "*"
