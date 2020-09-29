@@ -58,6 +58,13 @@ exports.handler = async (event, context, callback) => {
     const nanoSeconds = process.hrtime(beginPipeline).reduce((sec, nano) => sec * 1e9 + nano);
     var durationMS = (nanoSeconds/1000000);
 
+    if ( screenshotResult == null ){
+        screenshotResult = {
+            data: "",
+            mimeType: ""
+        }
+    }   
+
     callback(null, {
             status: 200,
             content: screenshotResult.data, 

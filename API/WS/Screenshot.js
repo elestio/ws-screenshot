@@ -97,17 +97,32 @@ exports.message = async (event, context, callback) => {
             catch(ex){
 
             }
-            
 
-            resp = {
-                "cmd": "responseScreenshot", 
-                "data": b64Data, 
-                "execTime": durationMS.toFixed(2) + "ms",
-                "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
-                "originalTS": obj.originalTS,
-                "outFormat": obj.outFormat,
-                "Content-Type": screenshotResult.mimeType
-            };
+
+            if ( screenshotResult == null ){
+                resp = {
+                    "cmd": "responseScreenshot", 
+                    "data": "", 
+                    "execTime": durationMS.toFixed(2) + "ms",
+                    "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
+                    "originalTS": obj.originalTS,
+                    "outFormat": obj.outFormat,
+                    "Content-Type": "application/json"
+                };
+            }   
+            else{
+                resp = {
+                    "cmd": "responseScreenshot", 
+                    "data": b64Data, 
+                    "execTime": durationMS.toFixed(2) + "ms",
+                    "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
+                    "originalTS": obj.originalTS,
+                    "outFormat": obj.outFormat,
+                    "Content-Type": screenshotResult.mimeType
+                };
+            }
+            
+            
         }
         else if ( obj.cmd == "CleanMemory" ){
             await tools.CleanMemory();
