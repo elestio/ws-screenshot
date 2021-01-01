@@ -26,7 +26,9 @@ Then open http://yourIP:3000/ in your browser
 
 if you are on Node 10, you can activate multi-threading by executing this in your terminal:
 
-    export NODE_OPTIONS=--experimental-worker
+```bash
+export NODE_OPTIONS=--experimental-worker
+```
 
 
 ## Install Node.js 12
@@ -86,7 +88,17 @@ Make a GET request (or open the url in your browser):
 
 ## Websocket API
 
-    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), resX: resX, resY: resY, outFormat: outFormat, isFullPage: isFullPage };
+```js
+var event = { 
+  cmd: "screenshot", 
+  url: url, 
+  originalTS: (+new Date()), 
+  resX: resX, 
+  resY: resY, 
+  outFormat: outFormat, 
+  isFullPage: isFullPage 
+};
+```
 
 You can check /public/js/client.js and /public/index.html for a sample on how to call the Websocket API
 
@@ -112,7 +124,14 @@ To call the REST API with an ApiKey:
 
 To call the Websocket API with an ApiKey:
 
-    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), apiKey: "XXXXXXXXXXXXX" };
+```js
+var event = { 
+  cmd: "screenshot", 
+  url: url, 
+  originalTS: (+new Date()), 
+  apiKey: "XXXXXXXXXXXXX"
+};
+```
 
 You can check /public/js/client.js for a sample on how to call the Websocket API
 
