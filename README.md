@@ -98,12 +98,12 @@ You can check /public/js/client.js and /public/index.html for a sample on how to
 - resY: integer value for screen height, default: 900
 - outFormat: output format, can be jpg, png or pdf, default: jpg
 - isFullPage: true or false, indicate if we should scroll the page and make a full page screenshot, default: false
-- waitTime: integer value in miliseconds, indicate max time to wait for page resources to load, default: 100
+- waitTime: integer value in milliseconds, indicate max time to wait for page resources to load, default: 100
 
 &nbsp;
 # Protect with an ApiKey
 
-You can protect the REST & WS APIs with an ApiKey, this is usefull if you want to protect your screenshot server from beeing used by anyone
+You can protect the REST & WS APIs with an ApiKey, this is usefull if you want to protect your screenshot server from being used by anyone
 To do that, open appconfig.json and set any string like a GUID in ApiKey attribute. This will be your ApiKey to pass to REST & WS APIs
 
 To call the REST API with an ApiKey:
