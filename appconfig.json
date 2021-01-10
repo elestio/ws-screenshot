@@ -9,9 +9,11 @@
   "TypeAPI": "LOCAL",
   "TypeFS": "LOCAL",
   "HSTS": false,
-  "rateLimiter" : {
-    "requestsPerSecond" : -1
+  "CORS": {
+      "access-control-allow-origin": "*"
   },
+  "maxRequestsPerMinutePerIP": 120,
+  "banDurationSeconds": 60,
   "CORS": {
       "access-control-allow-origin": "*"
   },

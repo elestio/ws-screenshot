@@ -4,7 +4,15 @@
   "description": "Fast websocket + rest api based screenshot server",
   "main": "index.js",
   "scripts": {
-    "server": "node node_modules/@elestio/cloudgate/cloudgate.js ../../../ -p 80 -c 1"
+    "server": "node index.js -p 3000 --oc 1"
+  },
+  "bin": "index.js",
+  "pkg": {
+    "scripts": "/API/**/*.js",
+    "assets": [
+      "/*.*",
+      "/public/**/*"
+    ]
   },
   "repository": {
     "type": "git",
@@ -16,7 +24,7 @@
   },
   "homepage": "https://github.com/elestio/ws-screenshot#readme",
   "dependencies": {
-    "@elestio/cloudgate": "^1.0.68",
+    "@elestio/cloudgate": "^1.0.99",
     "puppeteer": "^5.3.0"
   }
 }
