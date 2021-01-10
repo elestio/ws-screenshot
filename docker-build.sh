@@ -1,1 +1,1 @@
-docker build -t elestio/ws-screenshot .
+docker build -t elestio/ws-screenshot.slim .
