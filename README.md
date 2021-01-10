@@ -58,15 +58,17 @@ Finally we can start WS-SCREENSHOT Server one-time:
     
     ./run.sh
 
-or 
+or run as a service with pm2
 
-    npm run server
+    npm install -g pm2
+    pm2 start run.sh --name ws-screenshot
+    pm2 save
 
 ## Run with docker (local version for dev)
 Run just once
 
     docker build -t ws-screenshot .
-    docker run -p 3000:3000 -it ws-screenshot
+    docker run --rm -p 3000:3000 -it ws-screenshot
 
 Run as a docker service
 
