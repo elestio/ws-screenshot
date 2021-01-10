@@ -26,7 +26,9 @@ Then open http://yourIP:3000/ in your browser
 
 if you are on Node 10, you can activate multi-threading by executing this in your terminal:
 
-    export NODE_OPTIONS=--experimental-worker
+```bash
+export NODE_OPTIONS=--experimental-worker
+```
 
 
 ## Install Node.js 12
@@ -86,7 +88,17 @@ Make a GET request (or open the url in your browser):
 
 ## Websocket API
 
-    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), resX: resX, resY: resY, outFormat: outFormat, isFullPage: isFullPage };
+```js
+var event = { 
+  cmd: "screenshot", 
+  url: url, 
+  originalTS: (+new Date()), 
+  resX: resX, 
+  resY: resY, 
+  outFormat: outFormat, 
+  isFullPage: isFullPage 
+};
+```
 
 You can check /public/js/client.js and /public/index.html for a sample on how to call the Websocket API
 
@@ -98,12 +110,12 @@ You can check /public/js/client.js and /public/index.html for a sample on how to
 - resY: integer value for screen height, default: 900
 - outFormat: output format, can be jpg, png or pdf, default: jpg
 - isFullPage: true or false, indicate if we should scroll the page and make a full page screenshot, default: false
-- waitTime: integer value in miliseconds, indicate max time to wait for page resources to load, default: 100
+- waitTime: integer value in milliseconds, indicate max time to wait for page resources to load, default: 100
 
 &nbsp;
 # Protect with an ApiKey
 
-You can protect the REST & WS APIs with an ApiKey, this is usefull if you want to protect your screenshot server from beeing used by anyone
+You can protect the REST & WS APIs with an ApiKey, this is usefull if you want to protect your screenshot server from being used by anyone
 To do that, open appconfig.json and set any string like a GUID in ApiKey attribute. This will be your ApiKey to pass to REST & WS APIs
 
 To call the REST API with an ApiKey:
@@ -112,7 +124,14 @@ To call the REST API with an ApiKey:
 
 To call the Websocket API with an ApiKey:
 
-    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), apiKey: "XXXXXXXXXXXXX" };
+```js
+var event = { 
+  cmd: "screenshot", 
+  url: url, 
+  originalTS: (+new Date()), 
+  apiKey: "XXXXXXXXXXXXX"
+};
+```
 
 You can check /public/js/client.js for a sample on how to call the Websocket API
 
