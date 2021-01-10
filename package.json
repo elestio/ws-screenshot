@@ -1,6 +1,6 @@
 {
   "name": "ws-screenshot",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Fast websocket + rest api based screenshot server",
   "main": "index.js",
   "scripts": {
