@@ -1,9 +1,10 @@
 # ws-screenshot
 A simple way to take a screenshot of a website by providing its URL. ws-screenshot include a simple web UI but also a REST API and a Websocket API to automate screenshots.
 
-DEMO: http://backup15.terasp.net/
+DEMO: https://backup15.terasp.net/
 
 &nbsp;
+
 
 # Quickstart with Docker
 
