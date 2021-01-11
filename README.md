@@ -1,7 +1,7 @@
 # ws-screenshot
 A simple way to take a screenshot of a website by providing its URL. ws-screenshot include a simple web UI but also a REST API and a Websocket API to automate screenshots.
 
-DEMO: http://backup15.terasp.net/
+DEMO: https://backup15.terasp.net/
 
 &nbsp;
 
@@ -141,3 +141,8 @@ You can check /public/js/client.js for a sample on how to call the Websocket API
 # TODO list
 - Add wait duration as a param (some sites need more time to load all resources)
 - Add support for cookies / localstorage auth (to be able to screenshot authenticated pages)
+
+
+# Preview
+
+![Algorithm schema](./public/appdrag-screen.jpeg)
