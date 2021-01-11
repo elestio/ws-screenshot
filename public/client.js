@@ -45,11 +45,15 @@ function connect() {
             }
             else{
                 $("#resultImg").attr("src", "data:image/jpeg;base64, " + obj.data);
+                $(".result-img-link").attr("href", "data:image/jpeg;base64, " + obj.data);
                 $("#resultImg").show();
                 $("#resultPDF").hide();
             }            
 
             $("#stats").html("Processing time: " + obj.execTime + " - Roundtrip: " + ( (+new Date()) - obj.originalTS) + "ms" );
+            $('html,body').animate({
+                scrollTop: $("#stats").offset().top
+            }, 'slow')
         }
         else{
             $(_wsTrail_logSelector).append( sanitizeHTML(msg) + "<br/>");

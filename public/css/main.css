@@ -2,8 +2,31 @@ body
 {
     margin: 0;
     font-family: 'Lato', sans-serif;
-    background-color: #FAEFEA;
+    background-color: #F9F6F8;
     height: 100vh;
+}
+
+a {
+    color: #000!important;
+    text-decoration: none;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+
+.tips {
+    border-left:4px solid #DF2D6E;
+    padding: 25px;   
+    border-radius: 5px; 
+    padding: 25px;
+    background-color: #ececec;
+    line-height: 25px;
+    margin: 40px 0;
+}
+
+.tips__logo {
+    width: 32px;
+    height: 32px;
 }
 
 .container {
@@ -70,6 +93,11 @@ h1 {
     margin-right: 5px;
 }
 
+.screenshot__wait-time, .screenshot__full-page {
+    margin-left: 25px;
+    margin-right: 5px;
+}
+
 .screenshot__btn-block {
     margin-top: 30px;
 }
@@ -93,10 +121,6 @@ h1 {
     margin-right: 10px;
 }
 
-.screenshot__full-page {
-    margin-left : 5px
-}
-
 #stats {
     text-align: center;
 }
@@ -117,6 +141,11 @@ h1 {
     }
     .screenshot__full-page {
         margin-left : 0;
-        margin-top: 10px
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .screenshot__wait-time  {
+        margin-left: 0;
     }
   }

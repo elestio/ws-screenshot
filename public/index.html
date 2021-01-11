@@ -21,13 +21,24 @@
         <section class="row header">
             <div class="col-md-8 header__title">
                 <h1>A simple way to take a screenshot of a website by providing its URL</h1>
+                
             </div>
             
             <div class="col-md-4">
                 <img class="header__main-photo" src="main-photo.svg" alt="computer-search">
             </div>
         </section>
-
+        <div class="tips">
+            <div>
+                <img alt="tips-logo" class="tips__logo" src="https://cf.appdrag.com/support-documentatio-cb1e1b/uploads/1595412262473-spaceship.svg"  />&nbsp;<strong>Tips</strong> :&nbsp;</div>
+                <div>
+                Just call /api/screenshot api endpoint like this:<br/>
+                <a id="sampleREST" href='/api/screenshot?url=https://vms2.terasp.net' target='_blank' style='word-break: break-all;'>/api/screenshot?url=https://vms2.terasp.net</a><br/>
+                <i>( If your url contains parameters you should url encode it )</i>
+                </div>
+            </div>
+        
+        
         <section>
                 <p class="screenshot__label">↓ Paste your URL below to start ↓    </p>
                 <div class="screenshot__input-block">
@@ -45,10 +56,10 @@
                             <option value="pdf">PDF</option>
                         </select>
                     </div>
-                    <input class="screenshot__full-page " id="isFullPage" type="checkbox" onchange="UpdateRESTUrl()"> Full page screenshot
-                </div>
-                <div class="left">
-                    <span>Wait time before screenshot </span>  <input class="screenshot__input-options mleft-5" id="waitTime" type="number" min="0" max="30000" value="100" onchange="UpdateRESTUrl()"> ms
+                    <input class="screenshot__full-page" id="isFullPage" type="checkbox" onchange="UpdateRESTUrl()"> Full page screenshot
+                    <div class="left screenshot__wait-time">
+                        <span>Wait time before screenshot </span>  <input class="screenshot__input-options mleft-5" id="waitTime" type="number" min="0" max="30000" value="100" onchange="UpdateRESTUrl()"> ms
+                    </div>
                 </div>
                 <div class="screenshot__btn-block center">
                     <button type="submit" class="screenshot__btn" onclick="DoScreenshot()"><i class="screenshot__icon fad fa-analytics"></i>Take a screenshot</button>
@@ -58,7 +69,7 @@
 
     <br><br>
     <div id="stats"></div>
-    <img id="resultImg" class="result-block hidden" src="" style="margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;">
+        <img id="resultImg" class="result-block hidden" src="" style="margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;">
     <iframe id="resultPDF" class="result-block hidden" src="" style="display: none; margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;"></iframe>
     
     
