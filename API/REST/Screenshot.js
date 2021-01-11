@@ -68,6 +68,7 @@ exports.handler = async (event, context, callback) => {
     callback(null, {
             status: 200,
             content: screenshotResult.data, 
+            details: screenshotResult.details,
             headers:{
                 "execTime": durationMS.toFixed(2) + "ms",
                 "nbPuppeteerProcess": sharedmem.getInteger("nbPuppeteerProcess"),

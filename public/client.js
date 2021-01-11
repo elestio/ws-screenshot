@@ -44,9 +44,15 @@ function connect() {
                 $("#resultImg").hide();
             }
             else{
-                $("#resultImg").attr("src", "data:image/jpeg;base64, " + obj.data);
-                $("#resultImg").show();
-                $("#resultPDF").hide();
+                if ( obj.data == "" && obj.details != null ){
+                    alert("Error occured while taking the screenshot: " + obj.details);
+                } 
+                else{
+                    $("#resultImg").attr("src", "data:image/jpeg;base64, " + obj.data);
+                    $("#resultImg").show();
+                    $("#resultPDF").hide();
+                }
+                
             }            
 
             $("#stats").html("Processing time: " + obj.execTime + " - Roundtrip: " + ( (+new Date()) - obj.originalTS) + "ms" );

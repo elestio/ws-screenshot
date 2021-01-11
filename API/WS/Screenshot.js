@@ -103,6 +103,7 @@ exports.message = async (event, context, callback) => {
                 resp = {
                     "cmd": "responseScreenshot", 
                     "data": "", 
+                    "isEmptyResult": true,
                     "execTime": durationMS.toFixed(2) + "ms",
                     "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
                     "originalTS": obj.originalTS,
@@ -114,6 +115,8 @@ exports.message = async (event, context, callback) => {
                 resp = {
                     "cmd": "responseScreenshot", 
                     "data": b64Data, 
+                    "details": screenshotResult.details,
+                    "isEmptyResult": false,
                     "execTime": durationMS.toFixed(2) + "ms",
                     "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
                     "originalTS": obj.originalTS,

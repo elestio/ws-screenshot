@@ -101,10 +101,10 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
 
             var resp = {
                 status: "error",
-                details: ex,
+                details: ex.message,
                 mimeType: "application/json"
             };
-            reject(resp);
+            resolve(resp);
         }
     });
 }
