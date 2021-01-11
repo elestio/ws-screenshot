@@ -5,7 +5,6 @@ DEMO: https://backup15.terasp.net/
 
 &nbsp;
 
-
 # Quickstart with Docker
 
 Run once: 
@@ -142,3 +141,8 @@ You can check /public/js/client.js for a sample on how to call the Websocket API
 # TODO list
 - Add wait duration as a param (some sites need more time to load all resources)
 - Add support for cookies / localstorage auth (to be able to screenshot authenticated pages)
+
+
+# Preview
+
+![Algorithm schema](./public/appdrag-screen.jpeg)
