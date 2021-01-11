@@ -1,98 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="utf-8">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-	<title>
-		WS-Screenshot test page
-	</title>
-	<meta name="description" content="Demo page for ws-trail">
-	<link rel="shortcut icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!DOCTYPE html>
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 </head>
+<body class="mci-c4f7c3b940b2fda375c61f1064b5e7f6" data-feedly-mini="yes">
+    <div id="eventsLog" style="display:none">{"status":"OK","msg":"Connected to websocket screenshot service"}<br></div>
+    <div class="container">
 
-<body>
-    <H1 style='margin-bottom: 5px;'>WS-Screenshot</H1>
-    <a href='https://github.com/elestio/ws-screenshot' target='_blank'>https://github.com/elestio/ws-screenshot</a>
-    <br/><br/><br/>
-
-    <hr/>
-
-    <br/>
-    <h2>REST API usage</h2>
-    <span>
-        Just call /api/screenshot api endpoint like this:<br/>
-        <a id="sampleREST" href='/api/screenshot?url=https://vms2.terasp.net' target='_blank' style='word-break: break-all;'>/api/screenshot?url=https://vms2.terasp.net</a><br/><br/>
-        If your url contains parameters you should url encode it<br/>
-    </span>    
-
-    <br/>
-    <hr/>
-
-    <br/>
-    <h2>Websocket usage</h2>
-    
-    <div id='eventsLog' style='display: none;'></div>
-   
-    <input id='fieldUrl' type='text' value='https://vms2.terasp.net' placeholder="type an url to screenshot, eg: https://google.com" onchange='UpdateRESTUrl()'>
-    <button onclick='DoScreenshot()'>Do Screenshot</button>
-    <button onclick='CleanMemory()'>Clean Memory</button>
-
-    <br/><br/>
-
-    <div style='float: left;'>
-        <input id='resX' type='number' min="100" max="2560" value="1280" onchange='UpdateRESTUrl()' /> x <input id='resY' type='number' min="100" max="2560" value="900" onchange='UpdateRESTUrl()' />
-        <select id='outFormat' onchange='UpdateRESTUrl()'>
-            <option value='jpg'>JPG</option>
-            <option value='png'>PNG</option>
-            <option value='pdf'>PDF</option>
-        </select>
-    </div>
-
-    <div style='float: left;'>
-        <input id='isFullPage' type='checkbox' onchange='UpdateRESTUrl()'> Full page screenshot
-    </div>
-
-    <div style='margin-top:10px; float: left; width: 100%;'>
-        <span>Wait time before screenshot </span>  <input id='waitTime' type='number' min="0" max="30000" value="100" onchange='UpdateRESTUrl()' /> ms
-    </div>
-
-    <br/><br/>
-    <div id='stats'></div>
-    <img id='resultImg' src='' style='margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;'></img>
-    <iframe id='resultPDF' src='' style='display: none; margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;'></iframe>
-
-    <br/>
-
-
-    
-
-    <script>
-        //CUSTOMIZE YOUR WS-TRAIL CLIENT
-        var _wsTrail_uid = +(new Date()); //fill with the real userID
-        var _wsTrail_ctx = "public"; //fill with 'public' for unauthenticated or indicate the appID or other context for the user event, if ctx is filled then you MUST pass a JWT below
-        var _wsTrail_wlid = "-1"; //fill with the whiteLabelID (int), or -1
-        var _wsTrail_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxMjAiLCJpYXQiOjE1OTU3OTcwNzJ9.kQRb3FvmgAQztvER7W_UeQUlKUI3wQ5MRepBGdL_z6c"; //optional, used to authenticate SaveEvent
-        var _wsTrail_logSelector = "#eventsLog"; //keep empty if you don't want to bind logs
-    </script>
-    <script src='client.js'></script>
-
-
-    <script>
-        //FOR DEMO PAGE ONLY
-        function DoScreenshot(){
-            var url = document.getElementById("fieldUrl").value;
-            var resX = document.getElementById("resX").value;
-            var resY = document.getElementById("resY").value;
-            var outFormat = document.getElementById("outFormat").value;
-            var isFullPage = document.getElementById("isFullPage").checked;
-            var waitTime = document.getElementById("waitTime").value;
+        <section class="row header">
+            <div class="col-md-8 header__title">
+                <h1>A simple way to take a screenshot of a website by providing its URL</h1>
+            </div>
             
-            AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime);
-        }
+            <div class="col-md-4">
+                <img class="header__main-photo" src="main-photo.svg" alt="computer-search">
+            </div>
+        </section>
 
-    </script>
+        <section>
+                <p class="screenshot__label">↓ Paste your URL below to start ↓    </p>
+                <div class="screenshot__input-block">
+                    <input class="screenshot__input" id="fieldUrl" type="text" placeholder="Type an url to screenshot, eg: https://google.com" onchange="UpdateRESTUrl()">
+                        <span class="focus-bg"></span>
+                    
+                    <!-- <button  type="submit" class="screenshot__btn" onclick='CleanMemory()'>Clean Memory</button> -->
+                </div>
+                <div class="screenshot__options left">
+                    <div>
+                        <input id="resX" type="number" min="100" max="2560" value="1280" onchange="UpdateRESTUrl()" class="screenshot__input-options"> x <input class="screenshot__input-options" id="resY" type="number" min="100" max="2560" value="900" onchange="UpdateRESTUrl()">
+                        <select class="screenshot__input-options" id="outFormat" onchange="UpdateRESTUrl()">
+                            <option value="jpg">JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="pdf">PDF</option>
+                        </select>
+                    </div>
+                    <input class="screenshot__full-page " id="isFullPage" type="checkbox" onchange="UpdateRESTUrl()"> Full page screenshot
+                </div>
+                <div class="left">
+                    <span>Wait time before screenshot </span>  <input class="screenshot__input-options mleft-5" id="waitTime" type="number" min="0" max="30000" value="100" onchange="UpdateRESTUrl()"> ms
+                </div>
+                <div class="screenshot__btn-block center">
+                    <button type="submit" class="screenshot__btn" onclick="DoScreenshot()"><i class="screenshot__icon fad fa-analytics"></i>Take a screenshot</button>
+                </div>
+        </section>
+    
+
+    <br><br>
+    <div id="stats"></div>
+    <img id="resultImg" class="result-block hidden" src="" style="margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;">
+    <iframe id="resultPDF" class="result-block hidden" src="" style="display: none; margin-top: 10px; max-width: 100%; background: #eee; border: 1px solid #d1d1d1;"></iframe>
+    
+    
+<script>
+    //CUSTOMIZE YOUR WS-TRAIL CLIENT
+    var _wsTrail_uid = +(new Date()); //fill with the real userID
+    var _wsTrail_ctx = "public"; //fill with 'public' for unauthenticated or indicate the appID or other context for the user event, if ctx is filled then you MUST pass a JWT below
+    var _wsTrail_wlid = "-1"; //fill with the whiteLabelID (int), or -1
+    var _wsTrail_jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIxMjAiLCJpYXQiOjE1OTU3OTcwNzJ9.kQRb3FvmgAQztvER7W_UeQUlKUI3wQ5MRepBGdL_z6c"; //optional, used to authenticate SaveEvent
+    var _wsTrail_logSelector = "#eventsLog"; //keep empty if you don't want to bind logs
+</script>
+<script src="client.js"></script>
+
+
+<script>
+    //FOR DEMO PAGE ONLY
+    function DoScreenshot(){
+        var url = document.getElementById("fieldUrl").value;
+        var resX = document.getElementById("resX").value;
+        var resY = document.getElementById("resY").value;
+        var outFormat = document.getElementById("outFormat").value;
+        var isFullPage = document.getElementById("isFullPage").checked;
+        var waitTime = document.getElementById("waitTime").value;
+        
+        AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime);
+    }
+
+</script>
+
+</div><div id="feedly-mini" title="feedly Mini tookit"></div>
 </body>
-
 </html>
+
+
