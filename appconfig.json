@@ -14,9 +14,6 @@
   },
   "maxRequestsPerMinutePerIP": 120,
   "banDurationSeconds": 60,
-  "CORS": {
-      "access-control-allow-origin": "*"
-  },
   "apiEndpoints": {
     "/api/screenshot" : {
       "src" : "./API/REST/",
