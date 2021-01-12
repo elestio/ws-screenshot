@@ -3,6 +3,8 @@ A simple way to take a screenshot of a website by providing its URL. ws-screensh
 
 DEMO: https://backup15.terasp.net/
 
+![](https://cf.appdrag.com/support-documentatio-cb1e1b/uploads/files/e76ed2f5-943e-4fac-b454-6ebb9208f7a6.gif)
+
 &nbsp;
 
 # Quickstart with Docker
@@ -142,7 +144,3 @@ You can check /public/js/client.js for a sample on how to call the Websocket API
 - Add wait duration as a param (some sites need more time to load all resources)
 - Add support for cookies / localstorage auth (to be able to screenshot authenticated pages)
 
-
-# Preview
-
-![Algorithm schema](./public/appdrag-screen.jpeg)
