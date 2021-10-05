@@ -10,7 +10,7 @@ if (maxConcurrency < 1){
 }
 
 exports.handler = async (event, context, callback) => {
-
+    
     var sharedmem = context.sharedmem;
     var beginPipeline = process.hrtime();
     
@@ -50,6 +50,7 @@ exports.handler = async (event, context, callback) => {
     }
     catch(ex){
         //do nothing
+        
     }
 
     sharedmem.incInteger("nbPuppeteerProcess", -1);

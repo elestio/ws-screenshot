@@ -1,5 +1,5 @@
-#Require Node.js12
-FROM node:12-slim
+#Require Node.js12 minimum
+FROM node:16-slim
 
 # Create app directory
 WORKDIR /usr/src/app
