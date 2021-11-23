@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 var browser = null;
-module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY, outFormat, waitTime) {
+module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY, outFormat, waitTime, proxy_server) {
     return new Promise(async function (resolve, reject) {
 
         try{
@@ -18,10 +18,25 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
         var buffer = null;
         try{
 
-            if ( browser == null){
-                browser = await puppeteer.launch({headless: true, args: ['--no-sandbox', '--font-render-hinting=none', '--force-color-profile=srgb']});
+            var args = [
+                '--no-sandbox',
+                '--font-render-hinting=none',
+                '--force-color-profile=srgb'
+            ]
+
+            if (proxy_server != null){
+                args.push(`--proxy-server=${proxy_server}`)
+                args.push('--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE proxyhost"',)
             }
-            
+            if ( browser == null){
+                browser = await puppeteer.launch(
+                    {
+                        headless: true,
+                        args: args
+                    }
+                );
+            }
+
             //const browser = await puppeteer.launch({args: ['--no-sandbox']});
             const page = await browser.newPage();
             await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36");
@@ -38,13 +53,13 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
             if (isfullPage){
                 await autoScroll(page);
             }
-            
+
             //wait for the page to be fully loaded - max 1000ms wait
             try{
                 await page.waitForNavigation({waitUntil: 'networkidle2', timeout: waitTime});
             } catch(ex){
             }
-            
+
             var finalType = "jpg";
             var finalMime = "image/jpeg";
 
@@ -61,8 +76,8 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
                 finalMime = "application/pdf";
             }
 
-            var optionsPup = { 
-                type: finalType, 
+            var optionsPup = {
+                type: finalType,
                 encoding: 'binary',
                 fullPage: isfullPage
             };
@@ -77,18 +92,18 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
             else{
                 buffer = await page.pdf({printBackground: true, scale: 1, format: 'A4'});
             }
-            
+
             //await browser.close();
             await page.close();
 
-            let mimeType = finalMime;            
+            let mimeType = finalMime;
             var resp = {
                 mimeType: mimeType,
                 data: buffer
             };
 
             resolve(resp);
-            
+
         }
         catch(ex){
             console.log("Error while taking screenshot: " + ex.message);
@@ -144,11 +159,11 @@ module.exports.screnshotForUrl = async function (url, isfullPage, resX, resY, ou
 
             var errorContent = "";
             await page.goto(url).catch(e => errorContent = e);
-            
+
             //display error in the image
             if ( errorContent != "" ){
                 page.setContent("<pre>" + errorContent.stack + "</pre>");
-            } 
+            }
 
             await page.setViewport({
                 width: parseInt(resX),
@@ -166,7 +181,7 @@ module.exports.screnshotForUrl = async function (url, isfullPage, resX, resY, ou
             } catch(ex){
 
             }
-            
+
             var finalType = "jpg";
             var finalMime = "image/jpeg";
 
@@ -183,22 +198,22 @@ module.exports.screnshotForUrl = async function (url, isfullPage, resX, resY, ou
                 finalMime = "application/pdf";
             }
 
-            buffer = await page.screenshot({ 
-                type: finalType, 
-                quality: 84, 
+            buffer = await page.screenshot({
+                type: finalType,
+                quality: 84,
                 encoding: 'binary',
                 fullPage: isfullPage
             });
             await browser.close();
 
-            let mimeType = finalMime;            
+            let mimeType = finalMime;
             var resp = {
                 mimeType: mimeType,
                 data: buffer
             };
 
             resolve(resp);
-            
+
         }
         catch(ex){
             console.log("Error while taking screenshot: " + ex.message);
@@ -243,4 +258,4 @@ module.exports.sleep = function (ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
-}   
+}
