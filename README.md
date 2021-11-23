@@ -9,7 +9,7 @@ DEMO: https://backup15.terasp.net/
 
 # Quickstart with Docker
 
-Run once: 
+Run once:
 
     docker pull elestio/ws-screenshot.slim
     docker run -p 3000:3000 -it elestio/ws-screenshot.slim
@@ -39,7 +39,7 @@ Clone this repo then install NPM dependencies for ws-screenshot:
     npm install
 
 ## Install required dependencies for chrome:
-    
+
     ./installPuppeteerNativeDeps.sh
 
 
@@ -50,7 +50,7 @@ Clone this repo then install NPM dependencies for ws-screenshot:
 ## Run directly
 
 Finally we can start WS-SCREENSHOT Server one-time:
-    
+
     ./run.sh
 
 or run as a service with pm2
@@ -74,26 +74,35 @@ Run with helm
 
     helm upgrade --install ws-screenshot --namespace ws-screenshot helm/
 
+## Run with proxy
+Add `PROXY_SERVER` env variable:
+
+    docker run --rm -p 3000:3000 --env PROXY_SERVER=socks5://host:port -it ws-screenshot
+
+> NOTE: Chromium ignores username and password in `--proxy-server` arg
+>
+> https://bugs.chromium.org/p/chromium/issues/detail?id=615947
+
 &nbsp;
 # Usage
 
 ## REST API
 
 Make a GET request (or open the url in your browser):
-    
+
     /api/screenshot?resX=1280&resY=900&outFormat=jpg&isFullPage=false&url=https://vms2.terasp.net
 
 ## Websocket API
 
 ```js
-var event = { 
-  cmd: "screenshot", 
-  url: url, 
-  originalTS: (+new Date()), 
-  resX: resX, 
-  resY: resY, 
-  outFormat: outFormat, 
-  isFullPage: isFullPage 
+var event = {
+  cmd: "screenshot",
+  url: url,
+  originalTS: (+new Date()),
+  resX: resX,
+  resY: resY,
+  outFormat: outFormat,
+  isFullPage: isFullPage
 };
 ```
 
@@ -122,10 +131,10 @@ To call the REST API with an ApiKey:
 To call the Websocket API with an ApiKey:
 
 ```js
-var event = { 
-  cmd: "screenshot", 
-  url: url, 
-  originalTS: (+new Date()), 
+var event = {
+  cmd: "screenshot",
+  url: url,
+  originalTS: (+new Date()),
   apiKey: "XXXXXXXXXXXXX"
 };
 ```

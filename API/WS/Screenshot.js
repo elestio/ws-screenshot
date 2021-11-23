@@ -38,13 +38,14 @@ exports.message = async (event, context, callback) => {
             return;
         }
 
-        
+
         var resp = null;
 
         if ( obj.cmd == "screenshot" ){
 
             var sharedmem = context.sharedmem;
             var beginPipeline = process.hrtime();
+            var proxy_server = process.env.PROXY_SERVER
 
             while ( sharedmem.getInteger("nbPuppeteerProcess") >= maxConcurrency ){
                 await tools.sleep(20);
@@ -63,12 +64,20 @@ exports.message = async (event, context, callback) => {
             //var screenshotResult = await tools.screnshotForUrl(url, true);
             var screenshotResult = null;
             try{
-                screenshotResult = await tools.screnshotForUrlTab(url, obj.isFullPage, obj.resX, obj.resY, obj.outFormat, obj.waitTime);
+                screenshotResult = await tools.screnshotForUrlTab(
+                    url,
+                    obj.isFullPage,
+                    obj.resX,
+                    obj.resY,
+                    obj.outFormat,
+                    obj.waitTime,
+                    proxy_server,
+                );
             }
             catch(ex){
                 //do nothing
             }
-            
+
 
             sharedmem.incInteger("nbPuppeteerProcess", -1);
             sharedmem.incInteger("nbScreenshots", 1);
@@ -79,7 +88,7 @@ exports.message = async (event, context, callback) => {
             /*
             callback(null, {
                     status: 200,
-                    content: screenshotResult.data, 
+                    content: screenshotResult.data,
                     headers:{
                         "execTime": durationMS.toFixed(2) + "ms",
                         "nbPuppeteerProcess": sharedmem.getInteger("nbPuppeteerProcess"),
@@ -101,8 +110,8 @@ exports.message = async (event, context, callback) => {
 
             if ( screenshotResult == null ){
                 resp = {
-                    "cmd": "responseScreenshot", 
-                    "data": "", 
+                    "cmd": "responseScreenshot",
+                    "data": "",
                     "isEmptyResult": true,
                     "execTime": durationMS.toFixed(2) + "ms",
                     "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
@@ -110,11 +119,11 @@ exports.message = async (event, context, callback) => {
                     "outFormat": obj.outFormat,
                     "Content-Type": "application/json"
                 };
-            }   
+            }
             else{
                 resp = {
-                    "cmd": "responseScreenshot", 
-                    "data": b64Data, 
+                    "cmd": "responseScreenshot",
+                    "data": b64Data,
                     "details": screenshotResult.details,
                     "isEmptyResult": false,
                     "execTime": durationMS.toFixed(2) + "ms",
@@ -124,36 +133,36 @@ exports.message = async (event, context, callback) => {
                     "Content-Type": screenshotResult.mimeType
                 };
             }
-            
-            
+
+
         }
         else if ( obj.cmd == "CleanMemory" ){
             await tools.CleanMemory();
             resp = {
-                "cmd": "responseCleanMemory", 
+                "cmd": "responseCleanMemory",
                 "originalTS": obj.originalTS,
                 "status": "OK"
             };
         }
-    
+
     }
     catch(ex){
         console.log(ex);
         console.log("Crash in Message handling");
     }
 
-    
+
 
     //return the response to the websocket client (caller)
     if ( resp != null ){
         callback(null, JSON.stringify(resp));
     }
-    
+
 };
 
 exports.close = async (event, context, callback) => {
-            
-    //here your response will be discarded because the websocket 
+
+    //here your response will be discarded because the websocket
     //is already closed at clientside when we receive this event
     callback(null, null);
 };
