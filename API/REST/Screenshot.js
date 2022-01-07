@@ -37,6 +37,14 @@ exports.handler = async (event, context, callback) => {
         url = decodeURIComponent(url);
     }
 
+    if ( !url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://") ){
+        callback(null, {
+            status: 400,
+            content: "Invalid URL, must start with http:// or https://"
+        });
+        return;
+    }
+
     var isFullPage = false; if ( event.queryStringParameters.isFullPage == "true" ) { isFullPage = true; }
     var resX = 1280; if ( event.queryStringParameters.resX != null ) { resX = event.queryStringParameters.resX; }
     var resY = 900; if ( event.queryStringParameters.resY != null ) { resY = event.queryStringParameters.resY; }
