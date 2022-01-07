@@ -62,18 +62,7 @@ exports.message = async (event, context, callback) => {
             }
 
             if ( !url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://") ){
-                resp = {
-                    "cmd": "responseScreenshot",
-                    "data": "",
-                    "isEmptyResult": true,
-                    "execTime": "0ms",
-                    "totalScreenshots": sharedmem.getInteger("nbScreenshots"),
-                    "originalTS": obj.originalTS,
-                    "outFormat": obj.outFormat,
-                    "Content-Type": "application/json"
-                };
-                callback(null, JSON.stringify(resp));
-                return;
+                url = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"; //you have been rick rolled :)
             }
 
             //var screenshotResult = await tools.screnshotForUrl(url, true);

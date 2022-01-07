@@ -38,11 +38,7 @@ exports.handler = async (event, context, callback) => {
     }
 
     if ( !url.toLowerCase().startsWith("http://") && !url.toLowerCase().startsWith("https://") ){
-        callback(null, {
-            status: 400,
-            content: "Invalid URL, must start with http:// or https://"
-        });
-        return;
+        url = "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"; //you have been rick rolled :)
     }
 
     var isFullPage = false; if ( event.queryStringParameters.isFullPage == "true" ) { isFullPage = true; }
