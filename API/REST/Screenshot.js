@@ -14,6 +14,8 @@ exports.handler = async (event, context, callback) => {
     var sharedmem = context.sharedmem;
     var beginPipeline = process.hrtime();
     var proxy_server = process.env.PROXY_SERVER;
+    var path_to_extension = process.env.EXTENSION_PATH;
+    var headless_mode = process.env.HEADLESS_MODE;
 
     if ( hardcodedAPIKey != "" && event.queryStringParameters.apiKey != hardcodedAPIKey ){
         callback(null, {
@@ -51,7 +53,17 @@ exports.handler = async (event, context, callback) => {
     var screenshotResult = null;
 
     try{
-        screenshotResult = await tools.screnshotForUrlTab(url, isFullPage, resX, resY, outFormat, waitTime, proxy_server);
+        screenshotResult = await tools.screnshotForUrlTab(
+            url,
+            isFullPage,
+            resX,
+            resY,
+            outFormat,
+            waitTime,
+            proxy_server,
+            path_to_extension,
+            headless_mode,
+        );
     }
     catch(ex){
         //do nothing

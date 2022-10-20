@@ -45,7 +45,9 @@ exports.message = async (event, context, callback) => {
 
             var sharedmem = context.sharedmem;
             var beginPipeline = process.hrtime();
-            var proxy_server = process.env.PROXY_SERVER
+            var proxy_server = process.env.PROXY_SERVER;
+            var path_to_extension = process.env.EXTENSION_PATH;
+            var headless_mode = process.env.HEADLESS_MODE;
 
             while ( sharedmem.getInteger("nbPuppeteerProcess") >= maxConcurrency ){
                 await tools.sleep(20);
@@ -76,6 +78,8 @@ exports.message = async (event, context, callback) => {
                     obj.outFormat,
                     obj.waitTime,
                     proxy_server,
+                    path_to_extension,
+                    headless_mode,
                 );
             }
             catch(ex){

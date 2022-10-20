@@ -1,7 +1,17 @@
 const puppeteer = require('puppeteer');
 
 var browser = null;
-module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY, outFormat, waitTime, proxy_server) {
+module.exports.screnshotForUrlTab = async function (
+    url,
+    isfullPage,
+    resX,
+    resY,
+    outFormat,
+    waitTime,
+    proxy_server,
+    path_to_extension,
+    headless_mode,
+) {
     return new Promise(async function (resolve, reject) {
 
         try{
@@ -24,22 +34,33 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
                 '--force-color-profile=srgb'
             ]
 
+            if (path_to_extension != null){
+                args.push(`--load-extension=${path_to_extension}`)
+                args.push(`--disable-extensions-except=${path_to_extension}`)
+            }
+
             if (proxy_server != null){
                 args.push(`--proxy-server=${proxy_server}`)
                 args.push('--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE proxyhost"',)
             }
+
+            var headless = true;
+            if (headless_mode != null){
+                headless = 'chrome';
+            }
+
             if ( browser == null){
                 browser = await puppeteer.launch(
                     {
-                        headless: true,
-                        args: args
+                        headless: headless,
+                        args: args,
                     }
                 );
             }
 
             //const browser = await puppeteer.launch({args: ['--no-sandbox']});
             const page = await browser.newPage();
-            await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36");
+            await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4950.0 Safari/537.36");
             await page.goto(url);
 
             await page.setViewport({
