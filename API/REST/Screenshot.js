@@ -14,8 +14,7 @@ exports.handler = async (event, context, callback) => {
     var sharedmem = context.sharedmem;
     var beginPipeline = process.hrtime();
     var proxy_server = process.env.PROXY_SERVER;
-    var path_to_extension = process.env.EXTENSION_PATH;
-    var headless_mode = process.env.HEADLESS_MODE;
+    var pathToExtension = process.env.EXTENSION_PATH;
 
     if ( hardcodedAPIKey != "" && event.queryStringParameters.apiKey != hardcodedAPIKey ){
         callback(null, {
@@ -61,8 +60,7 @@ exports.handler = async (event, context, callback) => {
             outFormat,
             waitTime,
             proxy_server,
-            path_to_extension,
-            headless_mode,
+            pathToExtension,
         );
     }
     catch(ex){

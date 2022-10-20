@@ -9,8 +9,7 @@ module.exports.screnshotForUrlTab = async function (
     outFormat,
     waitTime,
     proxy_server,
-    path_to_extension,
-    headless_mode,
+    pathToExtension,
 ) {
     return new Promise(async function (resolve, reject) {
 
@@ -34,19 +33,17 @@ module.exports.screnshotForUrlTab = async function (
                 '--force-color-profile=srgb'
             ]
 
-            if (path_to_extension != null){
+            var headless = true;
+
+            if (pathToExtension != null){
                 args.push(`--load-extension=${path_to_extension}`)
                 args.push(`--disable-extensions-except=${path_to_extension}`)
+                headless = 'chrome';
             }
 
             if (proxy_server != null){
                 args.push(`--proxy-server=${proxy_server}`)
                 args.push('--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE proxyhost"',)
-            }
-
-            var headless = true;
-            if (headless_mode != null){
-                headless = 'chrome';
             }
 
             if ( browser == null){
