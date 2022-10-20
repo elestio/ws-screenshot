@@ -83,6 +83,19 @@ Add `PROXY_SERVER` env variable:
 >
 > https://bugs.chromium.org/p/chromium/issues/detail?id=615947
 
+## Run with extensions support
+Add `EXTENSION_PATH` env variable:
+    Place an archive to the root directory with .tar.gzip extension and uncomment 
+    extensions extraction in Dockerfile.
+
+    Browser will be launched in experemental 'chrome' headless mode.
+    NOTE: 'chrome' headless mode has the same performance as headfull one.
+
+    docker run --rm -p 3000:3000 --env EXTENSION_PATH=/tmp/chrome-extensions/i-dont-care-about-cookies 
+    -it ws-screenshot
+
+
+
 &nbsp;
 # Usage
 
