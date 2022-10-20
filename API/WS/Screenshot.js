@@ -78,7 +78,6 @@ exports.message = async (event, context, callback) => {
                     obj.waitTime,
                     proxy_server,
                     pathToExtension,
-                    headless_mode,
                 );
             }
             catch(ex){
