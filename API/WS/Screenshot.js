@@ -70,6 +70,7 @@ exports.message = async (event, context, callback) => {
             try{
                 screenshotResult = await tools.screnshotForUrlTab(
                     url,
+                    obj.headers,
                     obj.isFullPage,
                     obj.resX,
                     obj.resY,

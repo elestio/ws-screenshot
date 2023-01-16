@@ -90,7 +90,7 @@ Add `PROXY_SERVER` env variable:
 
 Make a GET request (or open the url in your browser):
 
-    /api/screenshot?resX=1280&resY=900&outFormat=jpg&isFullPage=false&url=https://vms2.terasp.net
+    /api/screenshot?resX=1280&resY=900&outFormat=jpg&isFullPage=false&url=https://vms2.terasp.net&headers={"foo":"bar"}
 
 ## Websocket API
 
@@ -102,7 +102,10 @@ var event = {
   resX: resX,
   resY: resY,
   outFormat: outFormat,
-  isFullPage: isFullPage
+  isFullPage: isFullPage,
+  headers: {
+    foo: 'bar'
+  }
 };
 ```
 
@@ -117,6 +120,7 @@ You can check /public/js/client.js and /public/index.html for a sample on how to
 - outFormat: output format, can be jpg, png or pdf, default: jpg
 - isFullPage: true or false, indicate if we should scroll the page and make a full page screenshot, default: false
 - waitTime: integer value in milliseconds, indicate max time to wait for page resources to load, default: 100
+- headers: add extra headers to the request
 
 &nbsp;
 # Protect with an ApiKey
