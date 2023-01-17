@@ -46,12 +46,21 @@ exports.handler = async (event, context, callback) => {
     var resY = 900; if ( event.queryStringParameters.resY != null ) { resY = event.queryStringParameters.resY; }
     var outFormat = "jpg"; if ( event.queryStringParameters.outFormat != null ) { outFormat = event.queryStringParameters.outFormat; }
     var waitTime = 100; if ( event.queryStringParameters.waitTime != null ) { waitTime = event.queryStringParameters.waitTime; }
+    var headers = {};
+
+    if (event.queryStringParameters.headers != null ) {
+      try {
+        headers = JSON.parse(event.queryStringParameters.headers);
+      } catch (e) {
+        console.error('can\'t parse headers');
+      }
+    }
 
     //var screenshotResult = await tools.screnshotForUrl(url, isFullPage, resX, resY, outFormat);
     var screenshotResult = null;
 
     try{
-        screenshotResult = await tools.screnshotForUrlTab(url, isFullPage, resX, resY, outFormat, waitTime, proxy_server);
+        screenshotResult = await tools.screnshotForUrlTab(url, headers, isFullPage, resX, resY, outFormat, waitTime, proxy_server);
     }
     catch(ex){
         //do nothing

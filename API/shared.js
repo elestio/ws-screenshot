@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 var browser = null;
-module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY, outFormat, waitTime, proxy_server) {
+module.exports.screnshotForUrlTab = async function (url, headers, isfullPage, resX, resY, outFormat, waitTime, proxy_server) {
     return new Promise(async function (resolve, reject) {
 
         try{
@@ -40,6 +40,10 @@ module.exports.screnshotForUrlTab = async function (url, isfullPage, resX, resY,
             //const browser = await puppeteer.launch({args: ['--no-sandbox']});
             const page = await browser.newPage();
             await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36");
+
+            if (headers != null) {
+              page.setExtraHTTPHeaders(headers);
+            }
             await page.goto(url);
 
             await page.setViewport({
