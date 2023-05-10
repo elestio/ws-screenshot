@@ -1,6 +1,6 @@
 {
   "name": "ws-screenshot",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Fast websocket + rest api based screenshot server",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/elestio/ws-screenshot#readme",
   "dependencies": {
-    "@elestio/cloudgate": "^1.0.101",
-    "puppeteer": "^5.3.0"
+    "@elestio/cloudgate": "^1.0.121",
+    "puppeteer": "^20.1.2"
   }
 }

@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 
 var browser = null;
+var timeoutCloseBrowser = null;
 module.exports.screnshotForUrlTab = async function (
   url,
   headers,
@@ -28,19 +29,24 @@ module.exports.screnshotForUrlTab = async function (
     try {
       var args = [
         "--no-sandbox",
-        "--font-render-hinting=none",
-        "--force-color-profile=srgb",
+        // "--font-render-hinting=none",
+        // "--force-color-profile=srgb",
       ];
 
-      if (proxy_server != null) {
-        args.push(`--proxy-server=${proxy_server}`);
-        args.push(
-          '--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE proxyhost"'
-        );
+      // if (proxy_server != null) {
+      //   args.push(`--proxy-server=${proxy_server}`);
+      //   args.push(
+      //     '--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE proxyhost"'
+      //   );
+      // }
+
+      if (timeoutCloseBrowser) {
+        clearTimeout(timeoutCloseBrowser);
       }
       if (browser == null) {
         browser = await puppeteer.launch({
-          headless: true,
+          timeout: 30000,
+          headless: "new",
           args: args,
         });
       }
@@ -111,7 +117,10 @@ module.exports.screnshotForUrlTab = async function (
         });
       }
 
-      //await browser.close();
+      timeoutCloseBrowser = setTimeout(async () => {
+        await browser.close();
+        browser = null;
+      }, 30000);
       await page.close();
 
       let mimeType = finalMime;
@@ -122,11 +131,15 @@ module.exports.screnshotForUrlTab = async function (
 
       resolve(resp);
     } catch (ex) {
+      resolve("pl");
       console.log("Error while taking screenshot: " + ex.message);
       console.log(ex);
 
       try {
-        //await browser.close();
+        timeoutCloseBrowser = setTimeout(async () => {
+          await browser.close();
+          browser = null;
+        }, 30000);
       } catch (ex) {}
 
       var resp = {
@@ -173,7 +186,9 @@ module.exports.screnshotForUrl = async function (
     var buffer = null;
     var browser = null;
     try {
-      browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+      browser = await puppeteer.launch({
+        args: ["--no-sandbox"],
+      });
       const page = await browser.newPage();
 
       var errorContent = "";
