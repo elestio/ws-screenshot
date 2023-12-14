@@ -93,7 +93,7 @@ h1 {
     margin-right: 5px;
 }
 
-.screenshot__wait-time, .screenshot__full-page {
+.screenshot__wait-time, .screenshot__full-page, .screenshot__dismiss-modals {
     margin-left: 25px;
     margin-right: 5px;
 }

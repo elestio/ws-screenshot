@@ -57,6 +57,7 @@
                         </select>
                     </div>
                     <input class="screenshot__full-page" id="isFullPage" type="checkbox" onchange="UpdateRESTUrl()"> Full page screenshot
+                    <input class="screenshot__dismiss-modals" id="dismissModals" type="checkbox" onchange="UpdateRESTUrl()"> Dismiss modals
                     <div class="left screenshot__wait-time">
                         <span>Wait time before screenshot </span>  <input class="screenshot__input-options mleft-5" id="waitTime" type="number" min="0" max="30000" value="100" onchange="UpdateRESTUrl()"> ms
                     </div>
@@ -93,8 +94,8 @@
         var outFormat = document.getElementById("outFormat").value;
         var isFullPage = document.getElementById("isFullPage").checked;
         var waitTime = document.getElementById("waitTime").value;
-        
-        AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime);
+        var dismissModals = document.getElementById("dismissModals").checked;
+        AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime, dismissModals);
     }
 
 </script>

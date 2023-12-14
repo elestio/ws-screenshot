@@ -83,10 +83,20 @@ function connect() {
 }
 
 var sendQueue = [];
-function AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime){    
+function AskForScreenshot(url, resX, resY, outFormat, isFullPage, waitTime, dismissModals){    
     $("#resultImg").hide();
     $("#stats").html("Please wait ...");
-    var event = { cmd: "screenshot", url: url, originalTS: (+new Date()), resX: resX, resY: resY, outFormat: outFormat, isFullPage: isFullPage, waitTime: waitTime };
+    var event = { 
+        cmd: "screenshot",
+        url: url,
+        originalTS: (+new Date()),
+        resX: resX,
+        resY: resY,
+        outFormat: outFormat,
+        isFullPage: isFullPage,
+        waitTime: waitTime,
+        dismissModals: dismissModals,
+    };
     Send(event);
 }
 
@@ -128,6 +138,7 @@ function UpdateRESTUrl(){
     baseUrl += "&outFormat=" + $("#outFormat").val();
     baseUrl += "&waitTime=" + $("#waitTime").val();
     baseUrl += "&isFullPage=" + document.getElementById("isFullPage").checked;
+    baseUrl += "&dismissModals=" + document.getElementById("dismissModals").checked;
 
     if ( $("#fieldUrl").val().indexOf("&") > -1 ){
         baseUrl += "&url=" + encodeURIComponent( $("#fieldUrl").val() )

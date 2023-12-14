@@ -78,6 +78,10 @@ exports.handler = async (event, context, callback) => {
       console.error("can't parse headers");
     }
   }
+  var dismissModals = false;
+  if (event.queryStringParameters.dismissModals == "true") {
+    dismissModals = true;
+  }
 
   //var screenshotResult = await tools.screnshotForUrl(url, isFullPage, resX, resY, outFormat);
   var screenshotResult = null;
@@ -92,7 +96,8 @@ exports.handler = async (event, context, callback) => {
       outFormat,
       orientation,
       waitTime,
-      proxy_server
+      proxy_server,
+      dismissModals,
     );
   } catch (ex) {
     //do nothing
