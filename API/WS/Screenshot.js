@@ -76,14 +76,14 @@ exports.message = async (event, context, callback) => {
         screenshotResult = await tools.screnshotForUrlTab(
           url,
           obj.headers,
-          (/true/).test(obj.isFullPage),
+          obj.isFullPage,
           obj.resX,
           obj.resY,
           obj.outFormat,
           obj.orientation,
           obj.waitTime,
           proxy_server,
-          (/true/).test(obj.dismissModals),
+          obj.dismissModals,
         );
       } catch (ex) {
         //do nothing
