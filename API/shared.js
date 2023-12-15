@@ -88,6 +88,9 @@ module.exports.screnshotForUrlTab = async function (
         try {
           await page.focus("body");
           await page.keyboard.press('Escape');
+          await page.waitForNavigation({
+            timeout: 200,
+          });
         } catch (ex) {}
       }
 
