@@ -86,7 +86,7 @@ module.exports.screnshotForUrlTab = async function (
       //Try to dismiss modals by sending Tab and Esc
       if (dismissModals) {
         try {
-          await page.keyboard.press('Tab');
+          await page.focus("body");
           await page.keyboard.press('Escape');
         } catch (ex) {}
       }
