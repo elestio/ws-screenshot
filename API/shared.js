@@ -11,7 +11,8 @@ module.exports.screnshotForUrlTab = async function (
   outFormat,
   orientation,
   waitTime,
-  proxy_server
+  proxy_server,
+  dismissModals,
 ) {
   return new Promise(async function (resolve, reject) {
     try {
@@ -81,6 +82,17 @@ module.exports.screnshotForUrlTab = async function (
           timeout: waitTime,
         });
       } catch (ex) {}
+
+      //Try to dismiss modals by sending Tab and Esc
+      if (dismissModals) {
+        try {
+          await page.focus("body");
+          await page.keyboard.press('Escape');
+          await page.waitForNavigation({
+            timeout: 200,
+          });
+        } catch (ex) {}
+      }
 
       var finalType = "jpg";
       var finalMime = "image/jpeg";
